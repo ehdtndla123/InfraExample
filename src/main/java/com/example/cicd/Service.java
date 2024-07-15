@@ -14,6 +14,7 @@ public class Service {
     @Transactional
     public void createEntity(String args) {
         Entity entity = new Entity();
+        System.out.println(args);
         entity.setOne(args + ", " + LocalDateTime.now().toString());
         entityRepository.save(entity);
     }
