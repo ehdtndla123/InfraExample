@@ -18,6 +18,10 @@ jobs:
         SERVER_USERNAME: ${{ secrets.SERVER_USERNAME }}
         SERVER_PASSWORD: ${{ secrets.SERVER_PASSWORD }}
         SERVER_ADDRESS: ${{ secrets.SERVER_ADDRESS }}
+        SERVER_HOST_KEY: ${{ secrets.SERVER_HOST_KEY }}
       run: |
-        sshpass -p "$SERVER_PASSWORD" scp -P 522 *.jar $SERVER_USERNAME@$SERVER_ADDRESS:~/cicd
+        mkdir -p ~/.ssh
+        echo "$SERVER_HOST_KEY" > ~/.ssh/known_hosts
+        sshpass -p "$SERVER_PASSWORD" scp -P 522 -o StrictHostKeyChecking=accept-new *.jar $SERVER_USERNAME@$SERVER_ADDRESS:~/cicd
+
 
