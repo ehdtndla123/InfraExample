@@ -19,7 +19,6 @@ jobs:
         username: ${{ secrets.SERVER_USERNAME }}
         password: ${{ secrets.SERVER_PASSWORD }}
         host: ${{ secrets.SERVER_ADDRESS }}
-        port: ${{ secrets.SERVER_PORT }}
         script: |
-          scp ./build/libs/*.jar ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_ADDRESS }}:~/cicd
+          scp -P ${{ secrets.SERVER_PORT }} ./build/libs/*.jar ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_ADDRESS }}:~/cicd
           # 추가로 필요한 배포 작업 수행
