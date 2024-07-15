@@ -22,6 +22,6 @@ jobs:
       run: |
         mkdir -p ~/.ssh
         echo "$SERVER_HOST_KEY" > ~/.ssh/known_hosts
-        sshpass -p "$SERVER_PASSWORD" scp -P 522 -o StrictHostKeyChecking=accept-new *.jar $SERVER_USERNAME@$SERVER_ADDRESS:~/cicd
+        sshpass -p "$SERVER_PASSWORD" scp -P 522 -o StrictHostKeyChecking=accept-new ./build/libs/*.jar $SERVER_USERNAME@$SERVER_ADDRESS:~/cicd
 
 
