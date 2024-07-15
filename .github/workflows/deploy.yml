@@ -19,5 +19,5 @@ jobs:
         SERVER_PASSWORD: ${{ secrets.SERVER_PASSWORD }}
         SERVER_ADDRESS: ${{ secrets.SERVER_ADDRESS }}
       run: |
-        scp -P 522 *.jar $SERVER_USERNAME@$SERVER_ADDRESS:~/cicd
+        sshpass -p "$SERVER_PASSWORD" scp -P 522 *.jar $SERVER_USERNAME@$SERVER_ADDRESS:~/cicd
 
