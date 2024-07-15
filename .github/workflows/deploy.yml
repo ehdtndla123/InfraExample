@@ -13,10 +13,6 @@ jobs:
     
     steps:
     - uses: actions/checkout@v4
-    - name: Download artifact
-      uses: actions/download-artifact@v4.1.8
-      with:
-        name: build
     - name: Deploy to Server
       env:
         SERVER_USERNAME: ${{ secrets.SERVER_USERNAME }}
@@ -26,4 +22,4 @@ jobs:
       run: |
         mkdir -p ~/.ssh
         echo "$SERVER_HOST_KEY" > ~/.ssh/known_hosts
-        sshpass -p "$SERVER_PASSWORD" scp -P 522 -o StrictHostKeyChecking=accept-new ./build/*.jar $SERVER_USERNAME@$SERVER_ADDRESS:~/cicd
+        sshpass -p "$SERVER_PASSWORD" scp -P 522 -o StrictHostKeyChecking=accept-new ./build/libs/*.jar $SERVER_USERNAME@$SERVER_ADDRESS:~/cicd
