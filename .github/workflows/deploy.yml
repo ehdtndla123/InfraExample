@@ -22,6 +22,7 @@ jobs:
         SERVER_ADDRESS: ${{ secrets.SERVER_ADDRESS }}
         SERVER_USERNAME: ${{ secrets.SERVER_USERNAME }}
         SERVER_PASSWORD: ${{ secrets.SERVER_PASSWORD }}
+        SERVER_PORT: ${{ secrets.SERVER_PORT }}
       run: |
-        scp build/*.jar $SERVER_USERNAME@$SERVER_ADDRESS:/path/to/server
+        scp -P $SERVER_PORT build/*.jar $SERVER_USERNAME@$SERVER_ADDRESS:~/cicd
         # 추가로 필요한 배포 작업 수행
