@@ -35,7 +35,10 @@ jobs:
 
     - name: Build with Gradle Wrapper
       run : ./gradlew clean build --exclude-task test
-    - uses: actions/checkout@v4
+    - name: Print Current Directory
+      run: |
+        pwd
+        ls -al
     - name: Deploy to Server
       env:
         SERVER_USERNAME: ${{ secrets.SERVER_USERNAME }}
