@@ -18,7 +18,7 @@ jobs:
         SERVER_USERNAME: ${{ secrets.SERVER_USERNAME }}
         SERVER_PASSWORD: ${{ secrets.SERVER_PASSWORD }}
         SERVER_ADDRESS: ${{ secrets.SERVER_ADDRESS }}
-        SERVER_HOST_KEY: ${{ secrets.SERVER_HOST_KEY }}
+        SERVER_HOST_KEY: ${{ secrets.SERVER_SSH_KEY }}
       run: |
         mkdir -p ~/.ssh
         echo "$SERVER_HOST_KEY" > ~/.ssh/known_hosts
