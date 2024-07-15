@@ -35,3 +35,8 @@ jobs:
 
     - name: Build with Gradle Wrapper
       run : ./gradlew clean build --exclude-task test
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: build
+        path: build/libs/*.jar
