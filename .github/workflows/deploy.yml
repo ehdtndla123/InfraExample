@@ -13,16 +13,18 @@ jobs:
     
     steps:
     - uses: actions/checkout@v4
+    - name: Create .ssh directory
+      run: |
+        mkdir -p ~/.ssh
     - name: Add known hosts
       run: |
         ssh-keyscan -H ${{ secrets.SERVER_ADDRESS }} >> ~/.ssh/known_hosts
     - name: Deploy to Server
-      uses: appleboy/ssh-action@master
-      with:
-        username: ${{ secrets.SERVER_USERNAME }}
-        password: ${{ secrets.SERVER_PASSWORD }}
-        host: ${{ secrets.SERVER_ADDRESS }}
-        port: ${{ secrets.SERVER_PORT }}
-        script: |
-          scp -P ${{ secrets.SERVER_PORT }} ./build/libs/*.jar ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_ADDRESS }}:~/cicd
-          # 추가로 필요한 배포 작업 수행
+      env:
+        SERVER_ADDRESS: ${{ secrets.SERVER_ADDRESS }}
+        SERVER_USERNAME: ${{ secrets.SERVER_USERNAME }}
+        SERVER_PASSWORD: ${{ secrets.SERVER_PASSWORD }}
+        SERVER_PORT: ${{ secrets.SERVER_PORT }}
+      run: |
+        scp -P $SERVER_PORT ./build/libs/*.jar $SERVER_USERNAME@$SERVER_ADDRESS:~/cicd
+        # 추가로 필요한 배포 작업 수행
