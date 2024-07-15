@@ -1,0 +1,27 @@
+name: Deploy
+
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: ["Java CI with Gradle"]
+    types: [completed]
+
+jobs:
+
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    - name: Download Artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: build
+    - name: Deploy to Server
+      env:
+        SERVER_ADDRESS: ${{ secrets.SERVER_ADDRESS }}
+        SERVER_USERNAME: ${{ secrets.SERVER_USERNAME }}
+        SERVER_PASSWORD: ${{ secrets.SERVER_PASSWORD }}
+      run: |
+        scp build/*.jar $SERVER_USERNAME@$SERVER_ADDRESS:/path/to/server
+        # 추가로 필요한 배포 작업 수행
